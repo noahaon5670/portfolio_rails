@@ -33,13 +33,31 @@ export default {
 
   // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
   ],
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
   build: {
+    babel: {
+      plugins: [
+        ['@babel/plugin-proposal-private-methods', { 'loose': true }],
+        ["@babel/plugin-proposal-private-property-in-object", { "loose": true }],
+      ],
+      presets({ isServer }) {
+        return [
+          [
+            require.resolve('@nuxt/babel-preset-app'),
+            {
+              buildTarget: isServer ? 'server' : 'client',
+              corejs: { version: 3 }
+            }
+          ]
+        ]
+      },
+    },
   },
   
   server: {
-    host: '0.0.0.0'
+    host: '0.0.0.0',
   }
 }
