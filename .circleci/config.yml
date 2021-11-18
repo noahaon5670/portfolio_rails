@@ -5,6 +5,7 @@ jobs:
     docker:
       - image: circleci/ruby:2.7.4
         environment:
+          BUNDLER_VERSION: 2.2.20 
           RAILS_ENV: test
           DB_HOST: 127.0.0.1
       - image: circleci/mysql:8.0
@@ -24,7 +25,7 @@ jobs:
       # gem install
       - run:
           command: |
-            gem install bundler
+            gem install bundler -v 2.2.20
             bundle config set path 'vendor/bundle'
             bundle install --jobs=4 --retry=3
           working_directory: ~/repo/backend
